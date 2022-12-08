@@ -1,0 +1,22 @@
+@startuml
+interface Print {
+  {abstract} printWeek()
+  {abstract} printStrong()
+}
+note bottom:必要なもの(直流12ボルト)
+class PrintBanner {
+  printWeek()
+  printStrong()
+}
+note bottom:変換装置(アダプター)
+class Banner {
+  showWithParan()
+  showWithAster()
+}
+note bottom:提供されているもの(交流100ボルト)
+class Main {
+}
+Print <-up- Main : Uses <
+Print <|.right. PrintBanner : implements <
+Banner <|-left- PrintBanner : extends <
+@enduml

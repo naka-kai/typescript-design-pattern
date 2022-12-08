@@ -1,0 +1,38 @@
+@startuml
+interface Aggregeate {
+  {abstract} iterator()
+}
+note left: 集合体を表すインターフェース
+interface Iterator {
+  {abstract} hasNext()
+  {abstract} next()
+}
+note right:数え上げ、スキャンを行うインターフェース
+class BookShelf {
+  books
+  last
+  getBookAt()
+  aooendBook()
+  getLength()
+  iterator()
+}
+note left: 本棚を表すクラス
+class BookShelfIterator {
+  bookShelf
+  index
+  hasNext()
+  next()
+}
+note right: 本棚をスキャンするクラス
+class Book {
+  name
+  getName()
+}
+note left: 本を表すクラス
+
+Iterator <-left- Aggregeate : Creates <
+Aggregeate <|-down- BookShelf
+Iterator <|-down- BookShelfIterator
+BookShelf <-right-o BookShelfIterator
+BookShelf o-down-> Book
+@enduml
