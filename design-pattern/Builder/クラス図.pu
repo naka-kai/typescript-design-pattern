@@ -1,0 +1,42 @@
+@startuml
+class Builder {
+  {abstract} makeTitle()
+  {abstract} makeString()
+  {abstract} makeItems()
+  {abstract} close()
+}
+note top: 文書を構成するためのメソッドを定めたクラス
+class Director {
+  builder
+  construct()
+}
+note top: 1つの文書を作るクラス
+class TextBuilder {
+  buffer
+  makeTitle()
+  makeString()
+  makeItems()
+  close()
+  getResult()
+}
+note bottom: プレーンテキスト(普通の文字列)を使って文書を作るクラス
+class HTMLBuilder {
+  filename
+  writer
+  makeTitle()
+  makeString()
+  makeItems()
+  close()
+  getResult()
+}
+note bottom: HTMLファイルを使って文書を作るクラス
+class Main {
+}
+
+Director <-left- Main : Uses <
+Builder <-left-o Director
+Builder <|-down- TextBuilder
+Builder <|-down- HTMLBuilder
+TextBuilder <|-up- Main : Uses <
+HTMLBuilder <|-up- Main : Uses <
+@enduml
